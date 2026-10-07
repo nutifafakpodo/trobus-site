@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Mono carries every fare, receipt and payout: a figure you can check. */
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* Night-road navy, lifted from the product apps (#0F172A, #172033) so the
+     handoff from site to app feels like one company. */
+  --color-ink-950: hsl(222 50% 5%);
+  --color-ink-900: hsl(222 47% 8%);
+  --color-ink-850: hsl(221 39% 11%);
+  --color-ink-800: hsl(220 35% 15%);
+  --color-ink-700: hsl(218 28% 22%);
+  --color-ink-600: hsl(216 20% 34%);
+  --color-ink-400: hsl(215 16% 62%);
+  --color-ink-200: hsl(214 25% 84%);
+  --color-ink-100: hsl(210 40% 95%);
+
+  /* Route blue: the product's primary. */
+  --color-route-600: hsl(221 83% 53%);
+  --color-route-500: hsl(217 91% 60%);
+  --color-route-400: hsl(213 94% 68%);
+  --color-route-300: hsl(212 96% 78%);
+
+  /* Tap green: the reader's LED. Used for "it worked" and nothing else. */
+  --color-tap-500: hsl(160 84% 39%);
+  --color-tap-400: hsl(158 64% 52%);
+  --color-tap-300: hsl(156 72% 67%);
+
+  /* Trotro amber: peak hours, arrears, things that need a second look. */
+  --color-amber-500: hsl(38 92% 50%);
+  --color-amber-400: hsl(43 96% 56%);
+  --color-amber-300: hsl(46 97% 65%);
+
+  --color-flag-400: hsl(351 95% 71%);
+
+  --color-background: hsl(222 50% 5%);
+  --color-foreground: hsl(210 40% 95%);
+  --color-border: hsl(220 30% 17%);
+
+  --shadow-card: 0 1px 2px hsl(222 50% 2% / 0.6), 0 24px 56px -28px hsl(222 50% 2% / 0.9);
+  --shadow-tap: 0 0 0 1px hsl(158 64% 52% / 0.3), 0 0 48px -6px hsl(158 64% 52% / 0.55);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    /* Faint route lines, the way a network map is ruled. */
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -10%, hsl(217 91% 60% / 0.14), transparent 70%),
+      linear-gradient(to right, hsl(217 91% 60% / 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(217 91% 60% / 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 64px 64px, 64px 64px;
+    background-repeat: no-repeat, repeat, repeat;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
+  }
+
+  ::selection {
+    background: hsl(217 91% 60% / 0.35);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-route-400);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  input[type="range"] {
+    accent-color: var(--color-route-500);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    /* Components gate their own motion; this catches anything that slips through. */
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility text-pretty {
+  text-wrap: pretty;
+}
